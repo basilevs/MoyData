@@ -1,0 +1,35 @@
+info:
+  name: Creativenovels.com article
+  description: Parses a single Creativenovels.com article.
+  type: article
+  domain: creativenovels.com
+  path: \d+/[-\w]+/
+  testPages:
+    - "https://creativenovels.com/68/chapter-154-the-class-return/"
+
+rules: 
+  - name: author
+    match:
+      include: span.author
+
+  - name: author_link
+    match:
+      include: span.author a
+      attribute: href
+
+  - name: date
+    match: span.date
+
+  - name: title
+    match:
+      include: h1.entry-title
+ 
+  - name: body
+    match:
+      include: div.entry-content, div.nav-links, div.page-body  div.mobile_nav
+      keepBasicMarkup: true
+      removeInside:
+        - div.wpcnt
+        - div.sharedaddy
+        - span.meta-nav
+        - div.code-block

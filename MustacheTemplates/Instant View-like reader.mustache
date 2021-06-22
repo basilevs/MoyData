@@ -525,84 +525,77 @@ section.channel > a > h4 {
   </head>
   <body>
     <article>
-      {{#if article_img_src}}
+      {{#article_img_src}}
         <figure>
           <figure><img alt="{{article_img_src}}" src="{{article_img_src}}"/></figure>
         </figure>
-      {{/if}}
+      {{/article_img_src}}
       <h1>{{{title}}}</h1>
       <address>
-        {{#if author_link}}
+        {{#author_link}}
           <a href="{{author_link}}">{{{author}}}</a>
-        {{else if author}}
+        {{/author_link}}
+        {{^author_link}}
           {{{author}}}
-        {{/if}}
+        {{/author_link}}
         <time> &#8226; {{{date}}}</time>
       </address>
       <div class='article-body'>{{{body}}}</div>
 
       <div class='nav'>
         <span class='nav-prev'>
-          {{#if nav_prev}}
-            {{#if nav_prev_link}}
+          {{#nav_prev}}
+            {{#nav_prev_link}}
               <a href="{{nav_prev_link}}">{{{nav_prev}}}</a>
-            {{else}}
-              {{{nav_prev}}}
-            {{/if}}          
-          {{/if}}
+            {{/nav_prev_link}}
+          {{/nav_prev}}
         </span>
         <span class='nav-middle'>
-          {{#if nav_middle}}
-            {{#if nav_middle_link}}
+          {{#nav_middle}}
+            {{#nav_middle_link}}
               <a href="{{nav_middle_link}}">{{{nav_middle}}}</a>
-            {{else}}
-              {{{nav_middle}}}
-            {{/if}}          
-          {{/if}}
+            {{/nav_middle_link}}
+          {{/nav_middle}}
         </span>
         <span class='nav-next'>
-          {{#if nav_next}}
-            {{#if nav_next_link}}
+          {{#nav_next}}
+            {{#nav_next_link}}
               <a href="{{nav_next_link}}">{{{nav_next}}}</a>
-            {{else}}
-              {{{nav_next}}}
-            {{/if}}          
-          {{/if}}
+            {{/nav_next_link}}
+          {{/nav_next}}
         </span>
       </div>
 
-      {{#if comment}}
-         <hr>
-      {{/if}}
-      {{#each comment}}
-        <div class='comment {{#unless body}}folded{{/unless}}'
-          {{#if level}}
+      {{#comment}}
+        <div class='comment {{^body}}folded{{/body}}'
+          {{#level}}
             indent='{{level}}'
-          {{else if indent}}
-            style='margin-left: {{indent}}'
-          {{/if}}
+          {{/level}}
+          {{^level}}
+            {{#indent}}
+                style='margin-left: {{indent}}'
+            {{/indent}}
+          {{/level}}
         >
-        {{#if body}}
+        {{#body}}
           <address>
-            {{#if author_link}}
+            {{#author_link}}
               <a href="{{author_link}}">{{{author}}}</a>
-            {{else if author}}
+            {{/author_link}}
+            {{^author_link}}
               {{{author}}}
-            {{/if}}
+            {{/author_link}}
             <time> &#8226; {{{date}}}</time>
           </address>
           <div class='comment-body'>{{{body}}}</div>
-        {{else}}
+        {{/body}}
+        {{^body}}
           <div class='folded-comment'>
-            {{#if ../folded_comment_text}}
-              {{{../folded_comment_text}}}
-            {{else}}
               (comment folded)
-            {{/if}}
           </div>
-        {{/if}}
+        {{/body}}
         </div>
-      {{/each}}
+      {{/comment}}
 
     </article>
   </body>

@@ -1,10 +1,10 @@
 {{!--
-name: Gray low-contrast reader
+name: Sepia reader
 type: article
 author: Moy.Design
-description: Minimalistic low-contrast template with gray background.
+description: Minimalistic template in sepia colors.
   Displays a single blog post in a human-friendly way without needless formatting.
-  Inspired by http://bettermotherfuckingwebsite.com/
+  Initially based on 'Gray low-contrast reader'.
 --}}
 <!DOCTYPE html>
 <html>
@@ -19,9 +19,10 @@ description: Minimalistic low-contrast template with gray background.
     body {
       line-height: 1.6;
       font-size: 20px;
-      color:#444;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #5b4636;
       padding:0 10px;
-      background-color: #eee;
+      background-color: #f4ecd8;
     }
     .container {
       margin: 20px auto;
@@ -39,10 +40,13 @@ description: Minimalistic low-contrast template with gray background.
       height: inherit;
       max-width: 100%;
     }
-    .article-body iframe:not(.instagram-media), .comment-body iframe:not(.instagram-media)  {
+    .article-body iframe:not(.instagram-media), .comment-body iframe:not(.instagram-media) {
       max-width: 100%;
       width: 640px;
       height: 360px;
+    }
+    .article-body a:visited, .comment-body a:visited {
+      color: #B10DC9;
     }
     .article-body div {
       margin-top: 1em;
@@ -69,7 +73,7 @@ description: Minimalistic low-contrast template with gray background.
       font-size: 1.05em;
     }
     a, a:visited {
-      color: #0074D9;
+      color: #0095dd;
       text-decoration: underline;
     }
     .nav {
@@ -82,9 +86,6 @@ description: Minimalistic low-contrast template with gray background.
     .article-header a {
       text-decoration: none;
     }
-    .article-body a:visited {
-      color: #B10DC9;
-    }
     .title, .comment-author {
       margin: 0;
       line-height: 1.2;
@@ -96,12 +97,10 @@ description: Minimalistic low-contrast template with gray background.
       font-weight: normal;
     }
     .date, .comment-date, .folded-comment {
-      color: #888;
       font-size: smaller;
     }
     .comment.folded + .comment.folded::after {
       content: "...";
-      color: #888;
       font-size: smaller;
     }
     .comment.folded + .comment.folded + .comment.folded {
@@ -141,27 +140,36 @@ description: Minimalistic low-contrast template with gray background.
     <div class='article'>
       <div class='article-header'>
         <div class='logo'>
-          {{#if logo_small_img_src}}
-            <a href="{{#if logo_small_link}}{{logo_small_link}}{{else}}/{{/if}}">
+          {{#logo_small_img_src}}
+            <a
+                {{#logo_small_link}}
+                    href="{{logo_small_link}}"
+                {{/logo_small_link}}
+                {{^logo_small_link}}
+                    href="/"
+                {{/logo_small_link}}
+            >
               <img src="{{logo_small_img_src}}">
             </a>
-          {{/if}}
+          {{/logo_small_img_src}}
         </div>
         <div class='author_pic'>
-          {{#if author_img_src}}
-            {{#if author_link}}
+          {{#author_img_src}}
+            {{#author_link}}
               <a href="{{author_link}}"><img src="{{author_img_src}}"></a>
-            {{else}}
+            {{/author_link}}
+            {{^author_link}}
               <img src="{{author_img_src}}">
-            {{/if}}
-          {{/if}}
+            {{/author_link}}
+          {{/author_img_src}}
         </div>
         <div class='author'>
-          {{#if author_link}}
+          {{#author_link}}
             <a href="{{author_link}}">{{{author}}}</a>
-          {{else}}
+          {{/author_link}}
+          {{^author_link}}
             {{{author}}}
-          {{/if}}
+          {{/author_link}}
         </div>
         <h1 class='title'>{{{title}}}</h1>
         <h3 class='subtitle'>{{{subtitle}}}</h3>
@@ -169,83 +177,78 @@ description: Minimalistic low-contrast template with gray background.
         <div class='clearfix'></div>
       </div>
       <div class='article-body'>
-        {{#if article_img_src}}
+        {{#article_img_src}}
           <img src="{{article_img_src}}">
-        {{/if}}
+        {{/article_img_src}}
         {{{body}}}
       </div>
 
       <div class='nav'>
         <span class='nav-prev'>
-          {{#if nav_prev}}
-            {{#if nav_prev_link}}
+          {{#nav_prev}}
+            {{#nav_prev_link}}
               <a href="{{nav_prev_link}}">{{{nav_prev}}}</a>
-            {{else}}
-              {{{nav_prev}}}
-            {{/if}}          
-          {{/if}}
+            {{/nav_prev_link}}
+          {{/nav_prev}}
         </span>
         <span class='nav-middle'>
-          {{#if nav_middle}}
-            {{#if nav_middle_link}}
+          {{#nav_middle}}
+            {{#nav_middle_link}}
               <a href="{{nav_middle_link}}">{{{nav_middle}}}</a>
-            {{else}}
-              {{{nav_middle}}}
-            {{/if}}          
-          {{/if}}
+            {{/nav_middle_link}}
+          {{/nav_middle}}
         </span>
         <span class='nav-next'>
-          {{#if nav_next}}
-            {{#if nav_next_link}}
+          {{#nav_next}}
+            {{#nav_next_link}}
               <a href="{{nav_next_link}}">{{{nav_next}}}</a>
-            {{else}}
-              {{{nav_next}}}
-            {{/if}}          
-          {{/if}}
+            {{/nav_next_link}}
+          {{/nav_next}}
         </span>
       </div>
 
-      {{#if comment}}<center>* * *</center>{{/if}}
-      {{#each comment}}
-        <div class='comment {{#unless body}}folded{{/unless}}'
-          {{#if level}}
+      {{#comment}}
+        <div class='comment {{^body}}folded{{/body}}'
+          {{#level}}
             indent='{{level}}'
-          {{else if indent}}
-            style='margin-left: {{indent}}'
-          {{/if}}
+          {{/level}}
+          {{^level}}
+              {{#indent}}
+                style='margin-left: {{indent}}'
+              {{/indent}}
+          {{/level}}
         >
-        {{#if body}}
+        {{#body}}
           <div class='comment-header'>
             <div class='comment-author-pic'>
-              {{#if author_img_src}}
-                {{#if author_link}}
+              {{#author_img_src}}
+                {{#author_link}}
                   <a href="{{author_link}}"><img src="{{author_img_src}}"></a>
-                {{else}}
+                {{/author_link}}
+                {{^author_link}}
                   <img src="{{author_img_src}}">
-                {{/if}}
-              {{/if}}
+                {{/author_link}}
+              {{/author_img_src}}
             </div>
             <div class='comment-author'>
-              {{#if author_link}}
+              {{#author_link}}
                 <a href="{{author_link}}">{{{author}}}</a>
-              {{else}}
+              {{/author_link}}
+              {{^author_link}}
                 {{{author}}}
-              {{/if}}
+              {{/author_link}}
             </div>
             <div class='comment-date'>{{{date}}}</div>
           </div>
           <div class='comment-body clearfix'>{{{body}}}</div>
-        {{else}}
+        {{/body}}
+        {{^body}}
           <div class='folded-comment'>
-            {{#if ../folded_comment_text}}
-              {{{../folded_comment_text}}}
-            {{else}}
               (comment folded)
-            {{/if}}
           </div>
-        {{/if}}
+        {{/body}}
         </div>
-      {{/each}}
+      {{/comment}}
     </div>
   </div>
 </body>

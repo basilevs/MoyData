@@ -148,22 +148,24 @@ description: Minimalistic low-contrast template with gray background.
 <body>
   <div class='container'>
     <div class='articles'>
-      {{#each article}}
+      {{#article}}
         <details open>
           <summary>
             <span class='summary-closed'>
-              {{#if author}}
-                {{#if author_link}}
+              {{#author}}
+                {{#author_link}}
                   <a href="{{author_link}}">{{{author}}}</a>:
-                {{else}}
+                {{/author_link}}
+                {{^author_link}}
                   {{{author}}}:
-                {{/if}}
-              {{/if}}
-              {{#if title_link}}
+                {{/author_link}}
+              {{/author}}
+              {{#title_link}}
                 <a href="{{title_link}}">{{{title}}}</a>
-              {{else}}
+              {{/title_link}}
+              {{^title_link}}
                 {{title}}
-              {{/if}}
+              {{/title_link}}
               <span class='summary-closed-plus'>&plus;</span>
             </span>
             <div class='top separator'>*&nbsp;*&nbsp;*</div>
@@ -171,82 +173,81 @@ description: Minimalistic low-contrast template with gray background.
           </summary>
           <div class='article-header'>
             <div class='author_pic'>
-              {{#if author_img_src}}
-                {{#if author_link}}
+              {{#author_img_src}}
+                {{#author_link}}
                   <a href="{{author_link}}"><img src="{{author_img_src}}"></a>
-                {{else}}
+                {{/author_link}}
+                {{^author_link}}
                   <img src="{{author_img_src}}">
-                {{/if}}
-              {{/if}}
+                {{/author_link}}
+              {{/author_img_src}}
             </div>
             <div class='author'>
-              {{#if author_link}}
+              {{#author_link}}
                 <a href="{{author_link}}">{{{author}}}</a>
-              {{else}}
+              {{/author_link}}
+              {{^author_link}}
                 {{{author}}}
-              {{/if}}
+              {{/author_link}}
             </div>
             <h1 class='title'>
-              {{#if title_link}}
+              {{#title_link}}
                 <a href="{{title_link}}">{{{title}}}</a>
-              {{else}}
+              {{/title_link}}
+              {{^title_link}}
                 {{title}}
-              {{/if}}
+              {{/title_link}}
             </h1>
             <div class='date'>{{date}}</div>
           </div>
           <div class='article-body'>{{{body}}}</div>
           <div class='article-comments'>
             <span class='comments'>
-              {{#if comments}}
-                {{#if comments_link}}
+              {{#comments}}
+                {{#comments_link}}
                   <a href="{{comments_link}}">{{{comments}}}</a>
-                {{else}}
+                {{/comments_link}}
+                {{^comments_link}}
                   {{{comments}}}
-                {{/if}}          
-              {{/if}}
+                {{/comments_link}}
+              {{/comments}}
             </span>
             <span class='new-comment'>
-              {{#if new_comment}}
-                {{#if new_comment_link}}
+              {{#new_comment}}
+                {{#new_comment_link}}
                   <a href="{{new_comment_link}}">{{{new_comment}}}</a>
-                {{else}}
+                {{/new_comment_link}}
+                {{^new_comment_link}}
                   {{{new_comment}}}
-                {{/if}}          
-              {{/if}}
+                {{/new_comment_link}}
+              {{/new_comment}}
             </span>
             <div class='separator'>*&nbsp;*&nbsp;*</div>
           </div>
         </details>
-      {{/each}}
+      {{/article}}
     </div>
     <div class='nav'>
       <span class='nav-prev'>
-        {{#if nav_prev}}
-          {{#if nav_prev_link}}
+        {{#nav_prev}}
+          {{#nav_prev_link}}
             <a href="{{nav_prev_link}}">{{{nav_prev}}}</a>
-          {{else}}
-            {{{nav_prev}}}
-          {{/if}}          
-        {{/if}}
+          {{/nav_prev_link}}
+        {{/nav_prev}}
       </span>
       <span class='nav-middle'>
-        {{#if nav_middle}}
-          {{#if nav_middle_link}}
+        {{#nav_middle}}
+          {{#nav_middle_link}}
             <a href="{{nav_middle_link}}">{{{nav_middle}}}</a>
-          {{else}}
-            {{{nav_middle}}}
-          {{/if}}          
-        {{/if}}
+          {{/nav_middle_link}}
+        {{/nav_middle}}
       </span>
       <span class='nav-next'>
-        {{#if nav_next}}
-          {{#if nav_next_link}}
+        {{#nav_next}}
+          {{#nav_next_link}}
             <a href="{{nav_next_link}}">{{{nav_next}}}</a>
-          {{else}}
-            {{{nav_next}}}
-          {{/if}}          
-        {{/if}}
+          {{/nav_next_link}}
+        {{/nav_next}}
       </span>
     </div>
   </div>
